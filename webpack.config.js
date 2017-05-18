@@ -17,6 +17,18 @@ var config = {
 		    include : APP_DIR,
 		    loader : 'babel-loader'
 		  }
+		],
+        preLoaders : [
+        	{
+                test: /\.jsx?$/,
+                loader: 'isparta',
+                include: path.join(__dirname, 'src')
+            }
+		]
+	},
+	resolve: {
+		root: [
+			path.resolve('./src/js/resources')		
 		]
 	}
 
