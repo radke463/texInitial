@@ -1,10 +1,12 @@
-import React from 'react';
-import Button from '../src/js/resources/Button.jsx';
+var React = require('react');
+var Button = require('../src/js/resources/Button.jsx');
 
-describe('Button item', () => {
-  const wrapper = shallow(<Button />);
+describe('Button item', function() {
+  var wrapper = mount(
+  	<Button />
+  );
 
-  it('should be a list item', () => {
-    expect(wrapper).to.have.length(1); 
+  it('should be a list item', function() {
+    expect(wrapper.find(Button)).to.have.length(1); 
   });
 });

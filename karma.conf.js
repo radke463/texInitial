@@ -28,33 +28,30 @@ module.exports = function(config) {
 
         plugins: plugins,
 
-        // base path that will be used to resolve all patterns (eg. files, exclude)
         basePath: '',
 
+        frameworks: ['mocha', 'requirejs', 'chai'],
 
-        // frameworks to use
-        // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: ['mocha', 'requirejs'],
-
-
-        // list of files / patterns to load in the browser
         files: [
-          'helpers/test-main.js',
-          'helpers/helpers.js',
-          'helpers/dom.js'
+          'test/**/*'
         ],
 
-
-        // list of files to exclude
         exclude: [
         ],
 
-
-        // preprocess matching files before serving them to the browser
-        // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
             './src/**/*': preprocessors,
-            './test/**/*': preprocessors
+            './test/**/*.jsx': preprocessors
+        },
+
+        babelPreprocessor: {
+            options: {
+                presets: ['airbnb']
+            }
+        },
+
+        webpackServer: {
+            noInfo: false
         },
 
         webpack: webpack,
@@ -62,14 +59,12 @@ module.exports = function(config) {
         coverageReporter: {
             type: 'html',
             dir: 'coverage/',
+            includeAllSources: true,
             check: {
                 global: globalCoverage
             }
         },
 
-        // test results reporter to use
-        // possible values: 'dots', 'progress'
-        // available reporters: https://npmjs.org/browse/keyword/karma-reporter
         reporters: ['progress', 'coverage'],
 
         thresholdReporter: {
@@ -77,35 +72,12 @@ module.exports = function(config) {
             projects: globalCoverage
         },
 
-
-        // web servere port
         port: 9876,
-
-
-        // enable / disable colors in the output (reporters and logs)
         colors: true,
-
-
-        // level of logging
-        // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
         logLevel: config.LOG_INFO,
-
-
-        // enable / disable watching file and executing tests whenever any file changes
         autoWatch: true,
-
-
-        // start these browsers
-        // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['Chrome', 'Firefox', 'Safari', 'IE'],
-
-
-        // Continuous Integration mode
-        // if true, Karma captures browsers, runs the tests and exits
+        browsers: ['Firefox'],
         singleRun: false,
-
-        // Concurrency level
-        // how many browser should be started simultaneous
         concurrency: Infinity
     });
 }
