@@ -2,22 +2,22 @@
 // Generated on Mon May 15 2017 20:45:43 GMT-0300 (BRT)
 
 var path = require('path');
+var webpack = require('./webpack.config.js');
+webpack.entry = {};
 
 function isCoverage(argument) {
     return argument === '--coverage';
 }
 
 module.exports = function(config) {
-    var webpack, coverageReporter, preprocessors = ["webpack"];
+    var coverageReporter, preprocessors = ["webpack"];
 
     var globalCoverage = {
-        statements: 70,
-        branches: 70,
-        functions: 70,
-        lines: 70
+        statements: 50,
+        branches: 50,
+        functions: 50,
+        lines: 50
     };
-
-    webpack = Object.assign({}, config.webpack);
 
     if (process.argv.some(isCoverage))
         config.reporters.push("text-summary-projects");
@@ -28,15 +28,12 @@ module.exports = function(config) {
 
         plugins: plugins,
 
-        basePath: '',
+        basePath: './',
 
         frameworks: ['mocha', 'requirejs', 'chai'],
 
         files: [
-          'test/**/*'
-        ],
-
-        exclude: [
+			'test/**/*'
         ],
 
         preprocessors: {
@@ -44,17 +41,15 @@ module.exports = function(config) {
             './test/**/*.jsx': preprocessors
         },
 
-        babelPreprocessor: {
-            options: {
-                presets: ['airbnb']
-            }
-        },
-
-        webpackServer: {
-            noInfo: false
-        },
+		babelPreprocessor: {
+			options: {
+				presets: ['airbnb']
+			}
+		},
 
         webpack: webpack,
+
+        reporters: ['progress', 'coverage'],
 
         coverageReporter: {
             type: 'html',
@@ -65,8 +60,6 @@ module.exports = function(config) {
             }
         },
 
-        reporters: ['progress', 'coverage'],
-
         thresholdReporter: {
             global: globalCoverage,
             projects: globalCoverage
@@ -76,7 +69,7 @@ module.exports = function(config) {
         colors: true,
         logLevel: config.LOG_INFO,
         autoWatch: true,
-        browsers: ['Firefox'],
+        browsers: ['Chrome'],
         singleRun: false,
         concurrency: Infinity
     });

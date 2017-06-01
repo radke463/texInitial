@@ -10,20 +10,21 @@ var config = {
 		path: BUILD_DIR,
 		filename: 'bundle.js'
 	},
+	externals: {
+		'react/lib/ExecutionEnvironment': true,
+		'react/addons': true,
+		'react/lib/ReactContext': 'window'
+	},
 	module : {
 		loaders: [
 			{
 				test: /\.jsx?$/,
-				loader: 'babel',
-				exclude: /node_modules/,
-				query: {
-					presets: ['airbnb'],
-					plugins: ['babel-plugin-transform-object-assign']
-				}
+				loader: 'babel-loader',
+				exclude: /node_modules/
 			},
 			{
 				test: /\.json$/,
-				loader: 'json'
+				loader: 'json-loader'
 			},
 			{test: /\.css$/, loader: "style-loader!css-loader"},
 			{test: /\.less$/, loader: "style-loader!css-loader!less-loader"},
